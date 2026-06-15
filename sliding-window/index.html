@@ -36,6 +36,24 @@
                     <p>Configure sender and receiver window sizes, timeout intervals, and frame loss conditions to generate a transmission timeline.</p>
                 </header>
                 <footer>
+                    <fieldset id="playback-controls">
+                        <legend>Playback</legend>
+                        <div id="status-pill">Step 0 / 0</div>
+                        <div class="button-grid">
+                            <button id="prev-btn" type="button" data-tooltip="Previous step">Step -</button>
+                            <button id="next-btn" type="button" data-tooltip="Next step">Step +</button>
+                            <button id="run-btn" type="button" data-tooltip="Play animation">Run</button>
+                            <button class="secondary" id="pause-btn" type="button" data-tooltip="Pause animation">Pause</button>
+                            <button class="secondary" id="reset-btn" type="button" data-tooltip="Reset to start">Reset</button>
+                            <button class="secondary" id="download-btn" type="button" data-tooltip="Download as SVG">Download</button>
+                        </div>
+                        <label>
+                            <span>Run speed (ms per step)</span>
+                            <output id="speed-value">900</output>
+                            <input id="speed" max="1800" min="0" step="50" type="range" value="900">
+                            <small class="helper-text">0 = instant completion</small>
+                        </label>
+                    </fieldset>
                     <fieldset>
                         <legend>Window</legend>
                         <div class="two-columns">
@@ -77,24 +95,6 @@
                                 <small class="helper-text">Retransmission timeout in RTT units</small>
                             </label>
                         </div>
-                    </fieldset>
-                    <fieldset id="playback-controls">
-                        <legend>Playback</legend>
-                        <div id="status-pill">Step 0 / 0</div>
-                        <div class="button-grid">
-                            <button id="prev-btn" type="button" data-tooltip="Previous step">Step -</button>
-                            <button id="next-btn" type="button" data-tooltip="Next step">Step +</button>
-                            <button id="run-btn" type="button" data-tooltip="Play animation">Run</button>
-                            <button class="secondary" id="pause-btn" type="button" data-tooltip="Pause animation">Pause</button>
-                            <button class="secondary" id="reset-btn" type="button" data-tooltip="Reset to start">Reset</button>
-                            <button class="secondary" id="download-btn" type="button" data-tooltip="Download as SVG">Download</button>
-                        </div>
-                        <label>
-                            <span>Run speed (ms per step)</span>
-                            <output id="speed-value">900</output>
-                            <input id="speed" max="1800" min="0" step="50" type="range" value="900">
-                            <small class="helper-text">0 = instant completion</small>
-                        </label>
                     </fieldset>
                 </footer>
             </aside>
