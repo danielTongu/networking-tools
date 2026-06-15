@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sliding Window Protocol Simulator | Networking Tools</title>
+        <meta name="description" content="Interactive Sliding Window Protocol Simulator supporting ACKs, duplicate ACKs, SACK, retransmissions, fast retransmit, and timeout visualization.">
+        <link rel="canonical" href="https://danielTongu.github.io/networking-tools/sliding-window/">
+        <meta property="og:title" content="Sliding Window Protocol Simulator">
+        <meta property="og:description" content="Visualize sliding window behavior, acknowledgements, retransmissions, duplicate ACKs, and SACK.">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://danielTongu.github.io/networking-tools/sliding-window/">
+        <link rel="stylesheet" href="../global.css">
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <header class="app-header">
+            <nav aria-label="Breadcrumb">
+                <a href="../">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><path d="M15 5 L8 12 L15 19"></path></svg>
+                    <span>Networking Tools</span>
+                </a>
+            </nav>
+            <div>
+                <h1>Sliding Window Protocol Simulator</h1>
+                <p>
+                    Visualize sender and receiver behavior for sliding window protocols with acknowledgements,
+                    duplicate ACKs, selective acknowledgements, retransmissions, and timeout recovery.
+                </p>
+            </div>
+        </header>
+        <main id="sliding-window-page">
+            <aside>
+                <header>
+                    <h3>How It Works</h3>
+                    <p>Configure sender and receiver window sizes, timeout intervals, and frame loss conditions to generate a transmission timeline.</p>
+                </header>
+                <footer>
+                    <fieldset>
+                        <legend>Window</legend>
+                        <div class="two-columns">
+                            <label>
+                                <span>SWS (Sender Window Size)</span>
+                                <input id="sws" max="20" min="1" type="number" value="4">
+                                <small class="helper-text">Maximum frames sender can have in flight</small>
+                            </label>
+                            <label>
+                                <span>RWS (Receiver Window Size)</span>
+                                <input id="rws" max="20" min="1" type="number" value="4">
+                                <small class="helper-text">Maximum frames receiver can buffer</small>
+                            </label>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Frames</legend>
+                        <div class="two-columns">
+                            <label>
+                                <span>First frame</span>
+                                <input id="first-frame" min="0" type="number" value="1">
+                                <small class="helper-text">Starting sequence number</small>
+                            </label>
+                            <label>
+                                <span>Stop after ACK</span>
+                                <input id="target-frame" min="1" type="number" value="8">
+                                <small class="helper-text">Last frame to transmit</small>
+                            </label>
+                        </div>
+                        <div class="two-columns">
+                            <label>
+                                <span>Failed frames</span>
+                                <input id="lost-frames" placeholder="2 or 2, 5, ..." type="text" value="3">
+                                <small class="helper-text">Comma-separated list of frames to simulate loss</small>
+                            </label>
+                            <label>
+                                <span>Timeout RTT</span>
+                                <input id="timeout-rtt" min="1" type="number" value="2">
+                                <small class="helper-text">Retransmission timeout in RTT units</small>
+                            </label>
+                        </div>
+                    </fieldset>
+                    <fieldset id="playback-controls">
+                        <legend>Playback</legend>
+                        <div id="status-pill">Step 0 / 0</div>
+                        <div class="button-grid">
+                            <button id="prev-btn" type="button" data-tooltip="Previous step">Step -</button>
+                            <button id="next-btn" type="button" data-tooltip="Next step">Step +</button>
+                            <button id="run-btn" type="button" data-tooltip="Play animation">Run</button>
+                            <button class="secondary" id="pause-btn" type="button" data-tooltip="Pause animation">Pause</button>
+                            <button class="secondary" id="reset-btn" type="button" data-tooltip="Reset to start">Reset</button>
+                            <button class="secondary" id="download-btn" type="button" data-tooltip="Download as SVG">Download</button>
+                        </div>
+                        <label>
+                            <span>Run speed (ms per step)</span>
+                            <output id="speed-value">900</output>
+                            <input id="speed" max="1800" min="0" step="50" type="range" value="900">
+                            <small class="helper-text">0 = instant completion</small>
+                        </label>
+                    </fieldset>
+                </footer>
+            </aside>
+            <section>
+                <figure><svg id="sliding-diagram"></svg></figure>
+                <fieldset>
+                    <legend>Diagram</legend>
+                    <label>
+                        <span>Horizontal axis gap (px)</span>
+                        <output id="axis-gap-value">300</output>
+                        <input id="axis-gap" max="520" min="220" type="range" value="300">
+                        <small class="helper-text">Distance between sender and receiver</small>
+                    </label>
+                    <label>
+                        <span>Vertical spacing (px per RTT)</span>
+                        <output id="spacing-value">82</output>
+                        <input id="spacing" max="120" min="56" type="range" value="82">
+                        <small class="helper-text">Height of one RTT interval</small>
+                    </label>
+                </fieldset>
+            </section>
+        </main>
+        <section>
+            <article>
+                <h2>What Is a Sliding Window Protocol?</h2>
+                <p>
+                    A sliding window protocol allows multiple frames to be sent before receiving acknowledgements.
+                    This improves network utilization by keeping the transmission channel busy rather than waiting for a response after every frame.
+                </p>
+                <p>
+                    The sender maintains a transmission window while the receiver maintains a receive window.
+                    Frames inside the window may be transmitted and acknowledged independently.
+                </p>
+            </article>
+            <article>
+                <h2>What Are Duplicate ACKs?</h2>
+                <p>
+                    Duplicate acknowledgements occur when the receiver continues receiving out-of-order frames while one earlier frame is missing.
+                    The receiver repeatedly acknowledges the last correctly received frame.
+                </p>
+                <p>Modern TCP implementations use duplicate ACKs to detect packet loss before a timeout occurs.</p>
+            </article>
+            <article>
+                <h2>What Is Fast Retransmit?</h2>
+                <p>
+                    Fast retransmit allows the sender to retransmit a missing frame after receiving multiple duplicate
+                    acknowledgements rather than waiting for a retransmission timeout.
+                </p>
+                <p>This significantly reduces recovery time on high-latency networks.</p>
+            </article>
+            <article>
+                <h2>What Is Selective Acknowledgement (SACK)?</h2>
+                <p>
+                    SACK allows a receiver to inform the sender about specific
+                    frames that arrived successfully even when earlier frames are missing.
+                </p>
+                <p>This reduces unnecessary retransmissions and improves throughput.</p>
+            </article>
+        </section>
+        <footer class="app-footer"><p>©<span id="copyright-year">2026</span> Daniel T. All rights reserved.</p></footer>
+        <script src="../footer.js"></script>
+        <script type="module" src="index.js"></script>
+    </body>
+</html>

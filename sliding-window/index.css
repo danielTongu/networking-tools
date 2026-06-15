@@ -1,0 +1,211 @@
+/* ============================================
+   SLIDING WINDOW INDEX.CSS
+   Mobile-first page styles
+   ============================================ */
+
+aside > footer {
+    display: grid;
+    gap: var(--size-5);
+}
+
+.two-columns {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--size-4);
+}
+
+.two-columns + .two-columns {
+    margin-top: var(--size-4);
+}
+
+#status-pill {
+    display: inline-block;
+    width: fit-content;
+    padding: var(--size-2) var(--size-4);
+    margin-bottom: var(--size-4);
+    background: rgba(45, 212, 191, 0.1);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--size-full);
+    color: var(--accent-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--size-2);
+}
+
+#sliding-window-page > section,
+#sliding-window-page > section > fieldset{
+    min-width: 0;
+}
+
+#sliding-window-page figure {
+    background: var(--bg-card);
+    overflow: auto;
+}
+
+/* ================= SLIDING WINDOW SVG =================== */
+
+.diagram-background {
+    fill: var(--bg-deep);
+}
+
+.axis {
+    stroke: var(--text-disabled);
+    stroke-width: 2;
+}
+
+.axis-label {
+    fill: var(--accent-primary);
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.axis-arrow {
+    fill: var(--border-medium);
+}
+
+/* ===== TIME GUIDES ===== */
+
+.time-guide-label {
+    fill: var(--text-muted);
+    font-size: 15px;
+}
+
+.time-guide-line {
+    stroke: var(--text-muted);
+    stroke-width: 1;
+    stroke-dasharray: 6 8;
+    opacity: 0.75;
+}
+
+.time-guide-tick {
+    stroke: var(--text-disabled);
+    stroke-width: 1;
+    opacity: 0.55;
+}
+
+/* ===== EVENTS ===== */
+
+.event {
+    --event-color: var(--text-secondary);
+    --event-fill-opacity: 70%;
+    --event-fill: rgba(203, 213, 225, var(--event-fill-opacity));
+    --event-dash: none;
+    --event-line-width: 2.5;
+}
+
+.event-frame {
+    --event-color: var(--accent-primary);
+    --event-fill: rgba(45, 212, 191, var(--event-fill-opacity));
+}
+
+.event-ack {
+    --event-color: var(--success);
+    --event-fill: rgba(34, 197, 94, var(--event-fill-opacity));
+}
+
+.event-timeout,
+.event.is-lost {
+    --event-color: var(--error);
+    --event-fill: rgba(239, 68, 68, var(--event-fill-opacity));
+    --event-line-width: 3;
+}
+
+.event.is-retransmission {
+    --event-color: var(--accent-secondary);
+    --event-fill: rgba(129, 140, 248, var(--event-fill-opacity));
+    --event-line-width: 3;
+}
+
+.event.is-duplicate {
+    --event-color: var(--warning);
+    --event-fill: rgba(245, 158, 11, var(--event-fill-opacity));
+    --event-dash: 7 5;
+}
+
+.event.is-sack {
+    --event-color: var(--info);
+    --event-fill: rgba(59, 130, 246, var(--event-fill-opacity));
+}
+
+.event-line {
+    stroke: var(--event-color);
+    stroke-width: var(--event-line-width);
+    stroke-dasharray: var(--event-dash);
+    fill: none;
+}
+
+.event-arrow {
+    fill: var(--event-color);
+    stroke: var(--event-color);
+    stroke-width: 1;
+    stroke-dasharray: none;
+}
+
+.event-label-box {
+    fill: var(--event-fill);
+    stroke: var(--event-color);
+    stroke-width: 1;
+    rx: 5px;
+}
+
+.event-label-text {
+    fill: var(--text-primary);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.event-loss-mark {
+    fill: var(--error);
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.event-timeout .event-line {
+    stroke-linecap: round;
+}
+
+.event-timeout .event-label-text {
+    fill: var(--error);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+/* ===== SVG HELPERS ===== */
+
+.anchor-middle {
+    text-anchor: middle;
+}
+
+.anchor-end {
+    text-anchor: end;
+}
+
+/* ===== TABLET ===== */
+
+@media (min-width: 400px) {
+    .two-columns {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .button-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* ===== DESKTOP ===== */
+
+@media (min-width: 1200px) {
+    .button-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    #sliding-window-page > footer {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}

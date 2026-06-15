@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>NRZ, NRZI, Manchester & 4B/5B Encoding Diagram Generator | Networking Tools</title>
+    <meta name="description" content="Generate and visualize NRZ, NRZI, Manchester, and 4B/5B line encoding diagrams for networking and data communications.">
+    <link rel="canonical" href="https://danielTongu.github.io/networking-tools/encoding/">
+    <meta property="og:title" content="Encoding Diagram Generator">
+    <meta property="og:description" content="Interactive NRZ, NRZI, Manchester, and 4B/5B encoding visualization tool.">
+    <link rel="stylesheet" href="../global.css">
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+<header>
+    <nav aria-label="Breadcrumb">
+        <a href="../">
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18">
+                <path d="M15 5 L8 12 L15 19"></path>
+            </svg>
+            Networking Tools
+        </a>
+    </nav>
+    <div>
+        <h1>Encoding Diagram Generator</h1>
+        <p>
+            Generate waveform diagrams for NRZ, NRZI, Manchester,
+            and 4B/5B encoded signals.
+        </p>
+    </div>
+</header>
+<main>
+    <aside>
+        <header>
+            <h3>How It Works</h3>
+            <p>Enter a bit-sequence, select an encoding method, and view the resulting signal transitions as an SVG diagram.</p>
+        </header>
+        <fieldset>
+            <legend>Signal Input</legend>
+            <label>
+                <span>Bit sequence</span>
+                <input id="bits" value="0100110110101111" placeholder="e.g., 0100110110101111">
+                <small>Binary sequence (0s and 1s only)</small>
+            </label>
+            <label>
+                <span>Encoding</span>
+                <select id="encoding-select">
+                    <option value="nrz">NRZ (Non-Return to Zero)</option>
+                    <option value="nrzi">NRZI (Non-Return to Zero Inverted)</option>
+                    <option value="manchester">Manchester</option>
+                    <option value="four-b-five-b">4B/5B + NRZI</option>
+                </select>
+            </label>
+            <label>
+                <span>Initial level</span>
+                <select id="start-level">
+                    <option value="low">Low (0V)</option>
+                    <option value="high">High (5V)</option>
+                </select>
+            </label>
+        </fieldset>
+    </aside>
+    <section>
+        <output id="output-text" aria-live="polite"></output>
+        <aside>
+            <label id="bit-period-label">Bit Period</label>
+            <label id="bit-sequence-label">Bit Sequence</label>
+            <label id="high-5v-label">High (5V)</label>
+            <label id="data-signal-label">Data Signal</label>
+            <label id="low-0v-label">Low (0V)</label>
+            <label id="clock-label">Clock</label>
+        </aside>
+        <figure><svg id="encoding-diagram"></svg></figure>
+    </section>
+</main>
+<section>
+    <article>
+        <h2>What Is Line Encoding?</h2>
+        <p>Line encoding converts binary data into electrical, optical, or radio signals that can be transmitted across a communication medium.</p>
+    </article>
+    <article>
+        <h2>What Is NRZ?</h2>
+        <p>NRZ represents binary values using fixed signal levels. A logical one and logical zero correspond to different voltage levels without returning to a neutral state between bits.</p>
+    </article>
+    <article>
+        <h2>What Is NRZI?</h2>
+        <p>NRZI represents data through signal transitions rather than absolute voltage levels. A transition typically indicates a logical one while no transition indicates a logical zero.</p>
+    </article>
+    <article>
+        <h2>What Is Manchester Encoding?</h2>
+        <p>Manchester encoding guarantees a transition in the middle of every bit period. This provides excellent synchronization and clock recovery.</p>
+    </article>
+    <article>
+        <h2>What Is 4B/5B Encoding?</h2>
+        <p>4B/5B converts every four bits of data into a five-bit codeword chosen to ensure sufficient signal transitions.</p>
+    </article>
+</section>
+<footer><p>©<span id="copyright-year">2026</span> Daniel T. All rights reserved.</p></footer>
+<script src="../footer.js"></script>
+<script type="module" src='./index.js'></script>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <title>Network Transfer Time Calculator | RTT, Propagation Delay & Transmission Delay</title>
+        <meta content="Calculate network transfer time, propagation delay, transmission delay, RTT, switch delay, bandwidth effects, and end-to-end file transfer performance." name="description">
+        <link href="https://danielTongu.github.io/networking-tools/transfer-time/" rel="canonical">
+        <meta content="Network Transfer Time Calculator" property="og:title">
+        <meta content="Interactive calculator for propagation delay, RTT, transmission delay, switch delay, and total transfer time." property="og:description">
+        <meta content="website" property="og:type">
+        <meta content="https://danielTongu.github.io/networking-tools/transfer-time/" property="og:url">
+        <link href="../global.css" rel="stylesheet">
+        <link href="./index.css" rel="stylesheet">
+    </head>
+    <body>
+        <header class="app-header">
+            <nav aria-label="Breadcrumb">
+                <a href="../">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><path d="M15 5 L8 12 L15 19"></path></svg>
+                    <span>Networking Tools</span>
+                </a>
+            </nav>
+            <div>
+                <h1>Network Transfer Time Calculator</h1>
+                <p>
+                    Calculate propagation delay, transmission delay, round-trip time (RTT), switch delay, and total
+                    file transfer time across multiple network links.
+                </p>
+            </div>
+        </header>
+        <main id="transfer-time-page">
+            <aside>
+                <header>
+                    <h3>How It Works</h3>
+                    <p>Define file characteristics and network links to generate a detailed calculation worksheet and topology diagram.</p>
+                </header>
+                <fieldset id="file-card">
+                    <legend>File</legend>
+                    <div class="two-columns">
+                        <label data-tooltip="Size of the file to transfer">
+                            <span>File size</span>
+                            <input id="file-size" type="number" value="124">
+                        </label>
+                        <label class="select-wrapper">
+                            <span>Unit</span>
+                            <select id="file-unit">
+                                <option value="KB">KB</option>
+                                <option value="MB">MB</option>
+                                <option selected value="GB">GB</option>
+                                <option value="TB">TB</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="two-columns">
+                        <label>
+                            <span>MSS bytes</span>
+                            <input id="mss-bytes" type="number" value="1460">
+                            <small class="helper-text">Maximum Segment Size in bytes</small>
+                        </label>
+                        <label>
+                            <span>Handshake RTTs</span>
+                            <input id="handshake-rtts" type="number" value="2">
+                            <small class="helper-text">Number of RTTs for connection establishment</small>
+                        </label>
+                    </div>
+                </fieldset>
+                <button hidden id="add-link-btn" type="button">+ Add Link</button>
+                <template id="link-card-template">
+                    <fieldset>
+                        <legend>Link</legend>
+                        <label>
+                            <span>Name</span>
+                            <input data-field="name" placeholder="e.g., Link 1">
+                        </label>
+                        <div class="two-columns">
+                            <label>
+                                <span>Distance</span>
+                                <input data-field="distance" type="number" placeholder="Distance">
+                            </label>
+                            <label class="select-wrapper">
+                                <span>Unit</span>
+                                <select data-field="distance-unit">
+                                    <option value="m">meters (m)</option>
+                                    <option value="km">kilometers (km)</option>
+                                    <option value="mi">miles (mi)</option>
+                                    <option value="ft">feet (ft)</option>
+                                    <option value="yd">yards (yd)</option>
+                                </select>
+                            </label>
+                        </div>
+                        <label class="select-wrapper">
+                            <span>Medium</span>
+                            <select data-field="medium">
+                                <option value="vacuum">Vacuum (299,792,458 m/s)</option>
+                                <option value="optical">Optical Fiber (200,000,000 m/s)</option>
+                                <option value="copper">Copper (230,000,000 m/s)</option>
+                                <option value="custom">Custom</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>Custom speed (m/s)</span>
+                            <input data-field="custom-speed" type="number" placeholder="e.g., 200000000">
+                        </label>
+                        <div class="two-columns">
+                            <label>
+                                <span>Bandwidth</span>
+                                <input data-field="bandwidth" type="number" placeholder="Bandwidth">
+                            </label>
+                            <label class="select-wrapper">
+                                <span>Unit</span>
+                                <select data-field="bandwidth-unit">
+                                    <option value="bps">bps</option>
+                                    <option value="kbps">kbps</option>
+                                    <option value="Mbps">Mbps</option>
+                                    <option value="Gbps">Gbps</option>
+                                    <option value="Tbps">Tbps</option>
+                                </select>
+                            </label>
+                        </div>
+                        <button class="remove-btn" type="button">Remove Link</button>
+                    </fieldset>
+                </template>
+                <section class="horizontal-scroll" id="links-form"></section>
+                <button id="add-switch-btn" type="button">+ Add Switch</button>
+                <template id="switch-card-template">
+                    <fieldset>
+                        <legend>Switch</legend>
+                        <div class="two-columns">
+                            <label>
+                                <span>Delay</span>
+                                <input data-field="delay" type="number" placeholder="Delay">
+                            </label>
+                            <label class="select-wrapper">
+                                <span>Unit</span>
+                                <select data-field="delay-unit">
+                                    <option value="us">microseconds (μs)</option>
+                                    <option value="ms">milliseconds (ms)</option>
+                                    <option value="s">seconds (s)</option>
+                                </select>
+                            </label>
+                        </div>
+                        <button class="remove-btn" type="button">Remove Switch + Trailing Link</button>
+                    </fieldset>
+                </template>
+                <section class="horizontal-scroll" id="switches-form"></section>
+            </aside>
+            <section>
+                <figure class="svg-wrapper">
+                    <svg aria-label="Generated topology diagram" id="transfer-diagram"></svg>
+                </figure>
+                <fieldset id="transfer-summary">
+                    <legend>Solution Summary</legend>
+                    <label>
+                        Circuit RTT:
+                        <input data-field="circuit-rtt" disabled type="text" value="0">
+                        seconds
+                    </label>
+                    <label>
+                        Total Transfer Time:
+                        <input data-field="total-transfer-time" disabled type="text" value="0">
+                        seconds
+                    </label>
+                </fieldset>
+                <fieldset>
+                    <legend>File Conversion</legend>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                            <tr><th>Item</th><th>Substitution</th><th>Result</th></tr>
+                            </thead>
+                            <tbody data-table="file-conversion"></tbody>
+                        </table>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Propagation Delay = Distance ÷ Speed</legend>
+                    <div class="table-container">
+                        <table>
+                            <thead><tr><th>Link</th><th>Substitution</th><th>Result</th></tr></thead>
+                            <tbody data-table="propagation-delay"></tbody>
+                        </table>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>RTT = 2 × Propagation Delay</legend>
+                    <div class="table-container">
+                        <table>
+                            <thead><tr><th>Link</th><th>Substitution</th><th>Result</th></tr></thead>
+                            <tbody data-table="rtt"></tbody>
+                        </table>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Transmit Time = File Bits ÷ Bandwidth</legend>
+                    <div class="table-container">
+                        <table>
+                            <thead><tr><th>Link</th><th>Substitution</th><th>Result</th></tr></thead>
+                            <tbody data-table="transmit-time"></tbody>
+                        </table>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Switch Delay — Total Delay = Packet Count × Switch Delay</legend>
+                    <div class="table-container">
+                        <table>
+                            <thead><tr><th>Switch</th><th>Substitution</th><th>Result</th></tr></thead>
+                            <tbody data-table="switch-delay"></tbody>
+                        </table>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Circuit RTT = Σ Link RTT + 2 × Σ Switch Delay</legend>
+                    <div class="table-container">
+                        <table>
+                            <thead><tr><th>Item</th><th>Substitution</th><th>Result</th></tr></thead>
+                            <tbody data-table="circuit-rtt"></tbody>
+                        </table>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Total Transfer Time = Handshake + Transmission + Propagation + Switch Delay</legend>
+                    <div class="table-container">
+                        <table>
+                            <thead><tr><th>Item</th><th>Substitution</th><th>Result</th></tr></thead>
+                            <tbody data-table="total-transfer-time"></tbody>
+                        </table>
+                    </div>
+                </fieldset>
+            </section>
+        </main>
+        <section>
+            <article>
+                <h2>What Is Network Transfer Time?</h2>
+                <p>
+                    Network transfer time is the total amount of time required for data to travel from a sender to a
+                    receiver. It is influenced by bandwidth, propagation delay, protocol overhead, acknowledgements, and intermediate devices.
+                </p>
+                <p>Understanding transfer time is essential when analyzing network performance and designing communication systems.</p>
+            </article>
+            <article>
+                <h2>What Is Propagation Delay?</h2>
+                <p>Propagation delay is the time required for a signal to physically travel across a transmission medium.</p>
+                <p>It depends on:</p>
+                <ul>
+                    <li>Distance between endpoints</li>
+                    <li>Signal propagation speed</li>
+                    <li>Transmission medium (fiber, copper, wireless)</li>
+                </ul>
+                <p>Formula:</p>
+                <p>Propagation Delay = Distance ÷ Propagation Speed</p>
+            </article>
+            <article>
+                <h2>What Is Transmission Delay?</h2>
+                <p>Transmission delay is the time required to push all bits of a packet or file onto a communication link.</p>
+                <p>It depends on:</p>
+                <ul>
+                    <li>File size</li>
+                    <li>Packet size</li>
+                    <li>Link bandwidth</li>
+                </ul>
+                <p>Formula:</p>
+                <p>Transmission Delay = Data Size ÷ Bandwidth</p>
+            </article>
+            <article>
+                <h2>What Is Round-Trip Time (RTT)?</h2>
+                <p>Round-trip time represents the time required for data to travel from sender to receiver and for an acknowledgement to return.</p>
+                <p>RTT is one of the most important measurements used by transport protocols such as TCP.</p>
+                <p>Formula:</p>
+                <p>RTT = 2 × Propagation Delay</p>
+            </article>
+            <article>
+                <h2>How Switches Affect Delay</h2>
+                <p>Network switches introduce additional processing delay while forwarding packets between interfaces.</p>
+                <p>
+                    In multi-hop networks, these delays accumulate and can significantly affect total transfer time,
+                    especially when a large number of packets are transmitted.
+                </p>
+            </article>
+            <article>
+                <h2>Factors That Affect File Transfer Speed</h2>
+                <ul>
+                    <li>Bandwidth limitations</li>
+                    <li>Network congestion</li>
+                    <li>Propagation distance</li>
+                    <li>Protocol handshakes</li>
+                    <li>Packet size (MSS)</li>
+                    <li>Switching and routing delays</li>
+                    <li>Round-trip time</li>
+                    <li>Retransmissions and packet loss</li>
+                </ul>
+            </article>
+        </section>
+        <footer class="app-footer"><p>©<span id="copyright-year">2026</span> Daniel T. All rights reserved.</p></footer>
+        <script src="../footer.js"></script>
+        <script src="./index.js" type="module"></script>
+    </body>
+</html>

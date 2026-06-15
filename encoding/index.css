@@ -1,0 +1,165 @@
+/* ============================================
+   ENCODING INDEX.CSS
+   ============================================ */
+main > section {
+    display: grid;
+    gap: var(--size-5);
+}
+
+section > aside {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-content: space-between;
+    gap: var(--size-3);
+    padding: 0 var(--size-5);
+    background: rgba(15, 23, 42, 0.72);
+    border-bottom: 1px solid var(--border-subtle);
+    font-size: x-small;
+}
+
+aside > label {
+    display: grid;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+#bit-sequence-label::after,
+#data-signal-label::after,
+#high-5v-label::after,
+#low-0v-label::after,
+#clock-label::after,
+#bit-period-label::after {
+    content: "";
+    display: block;
+    margin-top: var(--size-1);
+}
+
+#bit-sequence-label::after {
+    content: "1 0 1 ...";
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    letter-spacing: 0.25em;
+}
+
+#data-signal-label::after {
+    border-top: 2px solid var(--accent-primary);
+}
+
+#high-5v-label::after {
+    border-top: 2px dashed var(--success);
+}
+
+#low-0v-label::after {
+    border-top: 2px dashed var(--warning);
+}
+
+#clock-label::after {
+    border-top: 2px solid var(--accent-secondary);
+}
+
+#bit-period-label::after {
+    border-top: 2px solid var(--border-medium);
+}
+
+svg {
+    --diagram-height: 340;
+    --scroll-left-space: 0;
+    --diagram-right-margin: 60;
+    --diagram-bit-width: 70;
+
+    --bit-sequence-y: 70;
+
+    --signal-high-y: 110;
+    --signal-low-y: 155;
+
+    --clock-high-y: 210;
+    --clock-low-y: 255;
+
+    --bit-period-number-y: 328;
+    --grid-top-y: 0;
+    --grid-bottom-y: 340;
+
+    --transition-radius: 5;
+}
+
+.diagram-background {
+    fill: var(--bg-deep);
+}
+
+.bit-period-line {
+    stroke: var(--border-medium);
+    stroke-width: 1.2;
+    opacity: 0.9;
+}
+
+.mid-voltage-line,
+.half-bit-line {
+    stroke: var(--border-subtle);
+    stroke-width: 1;
+    stroke-dasharray: 7 13;
+}
+
+.high-5v-line {
+    stroke: var(--success);
+    stroke-width: 1.5;
+    stroke-dasharray: 8 6;
+    opacity: 0.5;
+}
+
+.low-0v-line {
+    stroke: var(--warning);
+    stroke-width: 1.5;
+    stroke-dasharray: 8 6;
+    opacity: 0.5;
+}
+
+.bit-sequence-bit {
+    fill: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.data-signal-line {
+    fill: none;
+    stroke: var(--accent-primary);
+    stroke-width: 4;
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+}
+
+.data-signal-transition {
+    fill: var(--warning);
+    stroke: var(--bg-deep);
+    stroke-width: 2;
+}
+
+.clock-line {
+    stroke: var(--accent-secondary);
+    stroke-width: 2.5;
+    stroke-linecap: square;
+    fill: none;
+}
+
+.clock-period-label {
+    fill: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.bit-period-number {
+    fill: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 12px;
+}
+
+.anchor-middle {
+    text-anchor: middle;
+}
+
+@media (min-width: 1000px) {
+    section > aside {
+        grid-auto-flow: column;
+    }
+}

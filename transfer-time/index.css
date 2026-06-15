@@ -1,0 +1,186 @@
+
+/* ============================================
+   TRANSFER TIME INDEX.CSS
+   Mobile-first page styles
+   ============================================ */
+
+main > aside {
+    display: grid;
+    gap: var(--size-5);
+}
+
+main > section > fieldset {
+    margin: 0;
+}
+
+main fieldset {
+    margin: 0;
+}
+
+.two-columns {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--size-4);
+}
+
+#add-link-btn,
+#add-switch-btn {
+    width: 100%;
+}
+
+.remove-btn {
+    width: 100%;
+    margin-top: var(--size-4);
+    background: var(--danger);
+    color: #ffffff;
+}
+
+.remove-btn:hover {
+    background: var(--danger-hover);
+}
+
+.horizontal-scroll {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(280px, 340px);
+    gap: var(--size-4);
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: var(--size-2);
+    scroll-snap-type: x proximity;
+}
+
+.horizontal-scroll > fieldset {
+    scroll-snap-align: start;
+}
+
+#links-form:empty,
+#switches-form:empty {
+    display: none;
+}
+
+/* ===== RESULTS AREA ===== */
+
+main > section {
+    display: grid;
+    gap: var(--size-5);
+}
+
+main > section > fieldset {
+    padding:0 var(--size-4);
+}
+
+#transfer-diagram {
+    min-width: 760px;
+    width: 100%;
+}
+
+#transfer-summary {
+    display: grid;
+    gap: var(--size-4);
+}
+
+#transfer-summary label {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--size-2);
+    margin: 0;
+}
+
+#transfer-summary input {
+    color: var(--accent-primary);
+    font-family: var(--font-mono);
+    font-weight: 700;
+}
+
+
+/* ===== EDUCATIONAL ARTICLES OUTSIDE MAIN ===== */
+
+main > footer ul {
+    padding-left: var(--size-5);
+    color: var(--text-secondary);
+}
+
+/* ===== GENERATED SVG ===== */
+
+#transfer-diagram text {
+    fill: var(--text-secondary);
+}
+
+.topology-link {
+    stroke: var(--accent-primary);
+    stroke-width: 4;
+    stroke-linecap: round;
+}
+
+.topology-node {
+    fill: #0f172a;
+    stroke-width: 2;
+}
+
+.topology-host {
+    stroke: var(--accent-primary);
+}
+
+.topology-switch {
+    stroke: var(--accent-secondary);
+    rx: 4px;
+}
+
+.topology-node-label {
+    fill: var(--text-primary);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.topology-label {
+    fill: var(--text-primary);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.anchor-middle {
+    text-anchor: middle;
+}
+
+.anchor-end {
+    text-anchor: end;
+}
+
+/* ===== TABLET ===== */
+
+@media (min-width: 600px) {
+    .two-columns {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #transfer-summary label {
+        grid-template-columns: max-content minmax(0, 1fr) max-content;
+        align-items: center;
+    }
+}
+
+/*
+
+ * Desktop layout:
+ * - The results panel is aligned independently of the controls panel.
+ * - `max-height` and `overflow-y` provide a safe CSS-only fallback.
+ * - `TransferTimeApp.syncResultsHeight()` (index.js) dynamically overrides `max-height` to match the computed height of `main > aside`.
+ * - Keep the CSS and JS implementations synchronized.
+ */
+@media (min-width: 1000px) {
+    main {
+        align-items: start;
+    }
+
+    main > aside {
+        align-self: start;
+    }
+
+    main > section {
+        align-self: start;
+        max-height: calc(100vh - 170px);
+        overflow-y: auto;
+    }
+}
+
