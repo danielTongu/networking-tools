@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Networking Tools | Protocol Simulators and Calculators</title>
+    <meta name="description" content="Interactive networking tools including a Sliding Window Protocol Simulator, Encoding Diagram Generator, and Network Transfer Time Calculator.">
+    <link rel="canonical" href="https://danielTongu.github.io/networking-tools/">
+    <meta property="og:title" content="Networking Tools">
+    <meta property="og:description" content="Interactive networking simulators and calculators for networking education.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://danielTongu.github.io/networking-tools/">
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<header class="app-header index-header">
+    <h1>Networking Tools</h1>
+    <p>Interactive networking simulators and calculators for studying computer networking concepts.</p>
+</header>
+<main>
+    <h2 id="tool-selection">Select a Tool</h2>
+    <nav aria-labelledby="tool-selection">
+        <a href="./sliding-window/">
+            <svg viewBox="0 0 360 130" aria-hidden="true">
+                <line class="timeline" x1="60" y1="18" x2="60" y2="112"/>
+                <line class="timeline" x1="300" y1="18" x2="300" y2="112"/>
+                <line class="packet" x1="60" y1="28" x2="300" y2="48"/>
+                <line class="packet" x1="60" y1="48" x2="300" y2="68"/>
+                <line class="packet pending" x1="60" y1="68" x2="300" y2="88"/>
+                <line class="ack" x1="300" y1="78" x2="60" y2="96"/>
+                <line class="ack" x1="300" y1="58" x2="60" y2="76"/>
+                <rect class="frame" x="140" y="58" width="22" height="10" rx="2"/>
+                <rect class="frame warning" x="185" y="78" width="22" height="10" rx="2"/>
+            </svg>
+            <h3>Sliding Window Protocol Simulator</h3>
+            <p>Visualize frame transmission, acknowledgements, retransmissions, duplicate ACKs, and SACK behavior.</p>
+        </a>
+        <a href="./encoding/">
+            <svg viewBox="0 0 360 130" aria-hidden="true">
+                <line class="baseline" x1="20" y1="108" x2="340" y2="108"/>
+                <path class="waveform" d="M20 80 L60 80 L60 40 L100 40 L100 80 L140 80 L140 40 L180 40 L180 80 L220 80 L220 40 L260 40 L260 80 L340 80"/>
+                <line class="bit" x1="60" y1="30" x2="60" y2="90"/>
+                <line class="bit" x1="100" y1="30" x2="100" y2="90"/>
+                <line class="bit" x1="140" y1="30" x2="140" y2="90"/>
+                <line class="bit" x1="180" y1="30" x2="180" y2="90"/>
+                <line class="bit" x1="220" y1="30" x2="220" y2="90"/>
+                <line class="bit" x1="260" y1="30" x2="260" y2="90"/>
+            </svg>
+            <h3>Encoding Diagram Generator</h3>
+            <p>Generate waveform diagrams for NRZ, NRZI, Manchester, and 4B/5B + NRZI encoding.</p>
+        </a>
+        <a href="./transfer-time/">
+            <svg viewBox="0 0 360 130" aria-hidden="true">
+                <circle class="host" cx="50" cy="65" r="18"/>
+                <rect class="switch" x="156" y="47" width="48" height="36" rx="4"/>
+                <circle class="host" cx="310" cy="65" r="18"/>
+                <line class="link" x1="68" y1="65" x2="156" y2="65"/>
+                <line class="link" x1="204" y1="65" x2="292" y2="65"/>
+            </svg>
+            <h3>Network Transfer Time Calculator</h3>
+            <p>Calculate propagation delay, RTT, transmission delay, switch delay, and total file transfer time.</p>
+        </a>
+    </nav>
+</main>
+<footer><p>©<span id="copyright-year">2026</span> Daniel T. All rights reserved.</p></footer>
+<script src="./footer.js"></script>
+</body>
+</html>

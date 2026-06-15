@@ -1,0 +1,153 @@
+/* ============================================
+   INDEX.CSS — Landing Page
+   ============================================ */
+
+.index-header {
+    margin-bottom: var(--size-6);
+}
+
+.index-header p {
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+main {
+    display: block;
+}
+
+main > h2 {
+    margin: 0 auto var(--size-6);
+    text-align: center;
+}
+
+main > nav {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--size-6);
+    max-width: 1180px;
+    margin: 0 auto;
+    text-align: initial;
+}
+
+main > nav > a {
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    gap: var(--size-4);
+    min-height: 100%;
+    padding: var(--size-6);
+    background: rgba(17, 24, 39, 0.92);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--size-7);
+    box-shadow: var(--shadow-md);
+    color: inherit;
+    text-decoration: none;
+    transition:
+            background var(--transition-fast),
+            border-color var(--transition-fast),
+            box-shadow var(--transition-fast),
+            transform var(--transition-fast);
+}
+
+main > nav > a:hover {
+    background:
+            radial-gradient(circle at 20% 0%, rgba(45, 212, 191, 0.1), transparent 35%),
+            radial-gradient(circle at 85% 20%, rgba(129, 140, 248, 0.08), transparent 35%),
+            rgba(17, 24, 39, 0.95);
+    border-color: var(--accent-primary);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+    text-decoration: none;
+}
+
+main > nav h3,
+main > nav p {
+    margin: 0;
+}
+
+main > nav p {
+    color: var(--text-secondary);
+}
+
+main > nav svg {
+    width: 100%;
+    height: 130px;
+    padding: var(--size-2);
+    background: rgba(2, 6, 23, 0.45);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--size-5);
+}
+
+/* SVG previews */
+
+.timeline,
+.baseline,
+.bit {
+    stroke: var(--border-medium);
+    stroke-width: 1.5;
+}
+
+.packet,
+.waveform,
+.link {
+    stroke: var(--accent-primary);
+    stroke-width: 3;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.ack {
+    stroke: var(--success);
+    stroke-width: 2.5;
+    fill: none;
+    stroke-linecap: round;
+}
+
+.pending {
+    stroke: var(--warning);
+    stroke-dasharray: 5 4;
+}
+
+.frame {
+    fill: var(--accent-primary);
+    opacity: 0.75;
+}
+
+.frame.warning {
+    fill: var(--warning);
+    opacity: 0.85;
+}
+
+.host,
+.switch {
+    fill: #0f172a;
+    stroke-width: 2;
+}
+
+.host {
+    stroke: var(--accent-primary);
+}
+
+.switch {
+    stroke: var(--accent-secondary);
+}
+
+/* Responsive */
+
+@media (min-width: 700px) {
+    main > nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1100px) {
+    main > nav {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    main > nav > a:hover {
+        transform: none;
+    }
+}
