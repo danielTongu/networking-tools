@@ -404,6 +404,7 @@ form {
 }
 
 fieldset {
+    overflow: hidden;
     border: 1px solid var(--border-subtle);
     border-radius: var(--size-4);
     padding: var(--size-5);
@@ -417,20 +418,32 @@ fieldset:hover {
 }
 
 legend {
-    padding: 0 var(--size-3);
     font-weight: 700;
     color: var(--accent-primary);
-    background: var(--bg-surface);
-    border-radius: var(--size-full);
+    background: inherit;
     font-size: 0.85rem;
     display: inline-block;
 }
 
 label {
-    display: block;
     font-weight: 500;
     color: var(--text-secondary);
     margin-bottom: var(--size-1);
+}
+
+label:has(select) {
+    position: relative;
+}
+
+label:has(select)::after {
+    content: "⌵";
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent-primary);
+    pointer-events: none;
+    font-size: 1.2rem;
 }
 
 label > span + output {
@@ -455,7 +468,6 @@ textarea {
     font-family: inherit;
     font-size: 0.9rem;
     transition: all var(--transition-fast);
-    display: block;
 }
 
 input:hover,
@@ -476,21 +488,6 @@ select {
     appearance: none;
     padding-right: var(--size-8);
     cursor: pointer;
-}
-
-label:has(select) {
-    position: relative;
-}
-
-label:has(select)::after {
-    content: "⌵";
-    position: absolute;
-    right: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--accent-primary);
-    pointer-events: none;
-    font-size: 1.2rem;
 }
 
 input[type="range"] {
@@ -547,8 +544,6 @@ small,
 .table-container {
     overflow-x: auto;
     overflow-y: hidden;
-    margin: var(--size-4) 0;
-    border-radius: var(--size-4);
     display: block;
 }
 
@@ -558,29 +553,32 @@ table {
     width: 100%;
     border-collapse: collapse;
     background: var(--bg-elevated);
-    border-radius: var(--size-4);
 }
 
 th,
 td {
     font-family: var(--font-mono);
     text-align: left;
-    color: var(--text-secondary);
     white-space: nowrap;
     text-wrap: nowrap;
-    padding: var(--size-3) var(--size-5);
-    border-bottom: 1px solid var(--border-subtle);
+    padding: var(--size-2) var(--size-5);
+
+    &:not(:last-child) {
+        border-right: 1px solid var(--border-subtle);
+    }
 }
 
 th {
-    font-weight: 700;
+    font-weight: normal;
     font-size: 0.75rem;
     letter-spacing: 0.02em;
     color: var(--accent-primary);
     background: #0f172a;
+    text-transform: uppercase;
 }
 
 td {
+    border-top: 1px solid var(--border-subtle);
     font-size: 0.78rem;
 }
 
