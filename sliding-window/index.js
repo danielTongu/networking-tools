@@ -598,7 +598,7 @@ export default class SlidingWindowApp {
             gapMaxRatio: 0.7,
             overhang: 40,
             labelOffsetY: -30,
-            arrowSize: 11
+            arrowSize: 27
         }),
 
         spacing: Object.freeze({
@@ -613,7 +613,7 @@ export default class SlidingWindowApp {
 
         arrow: Object.freeze({
             length: 10,
-            width: 7
+            width: 23
         }),
 
         timeGuide: Object.freeze({
@@ -693,11 +693,11 @@ export default class SlidingWindowApp {
 
         this.elements.axisGap.min = String(minAxisGap);
         this.elements.axisGap.max = String(maxAxisGap);
-        this.elements.axisGap.value = String(maxAxisGap);
+        this.elements.axisGap.value = String(maxAxisGap/2); // custom value
 
         this.elements.spacing.min = String(settings.spacing.min);
         this.elements.spacing.max = String(settings.spacing.max);
-        this.elements.spacing.value = String(settings.spacing.min);
+        this.elements.spacing.value = String(settings.spacing.max);
 
         this.elements.speed.min = String(settings.playback.minSpeed);
         this.elements.speed.max = String(settings.playback.maxSpeed);
