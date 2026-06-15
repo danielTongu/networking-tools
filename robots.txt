@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://danielTongu.github.io/networking-tools/sitemap.xml
