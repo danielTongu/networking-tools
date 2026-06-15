@@ -253,7 +253,8 @@ body > section {
     gap: var(--size-6);
     max-width: var(--max-width);
     margin: var(--size-9) auto 0;
-    padding: 0 var(--size-6);
+    padding: var(--size-6);
+    border-top: 1px solid var(--border-subtle);
 }
 
 body > section article {
