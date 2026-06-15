@@ -6,11 +6,7 @@
 
 main > aside {
     display: grid;
-    gap: var(--size-5);
-}
-
-main > section > fieldset {
-    margin: 0;
+    gap: var(--size-8);
 }
 
 main fieldset {
@@ -21,6 +17,10 @@ main fieldset {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--size-4);
+}
+
+.two-columns + .two-columns {
+    margin-top: var(--size-4);
 }
 
 #add-link-btn,
@@ -63,11 +63,15 @@ main fieldset {
 
 main > section {
     display: grid;
-    gap: var(--size-5);
+    gap: var(--size-9);
 }
 
 main > section > fieldset {
-    padding:0 var(--size-4);
+    padding:var(--size-4) 0 0 0;
+}
+
+main > section > fieldset > legend{
+    margin-left: var(--size-4);
 }
 
 #transfer-diagram {
@@ -76,23 +80,45 @@ main > section > fieldset {
 }
 
 #transfer-summary {
-    display: grid;
-    gap: var(--size-4);
+    padding: var(--size-4);
 }
 
 #transfer-summary label {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--size-2);
-    margin: 0;
+    display: block;
+    font-family: var(--font-mono);
 }
 
 #transfer-summary input {
-    color: var(--accent-primary);
-    font-family: var(--font-mono);
-    font-weight: 700;
+    display:inline-block;
+    /*color: var(--accent-primary);*/
+    width: auto;
+    background:none;
+    border:none;
+    outline:none;
+    margin:0;
+    padding:0;
+    border-radius:0;
+    border-bottom: 1px solid var(--text-secondary);
 }
 
+[data-reference-id="total-propagation-delay"] {
+    color: var(--accent-secondary);
+}
+[data-reference-id="total-link-rtt"] {
+    color: var(--info);
+}
+[data-reference-id="total-transmission-time"] {
+    color: var(--error);
+}
+[data-reference-id="total-switch-delay"] {
+    color: var(--warning);
+}
+[data-reference-id="circuit-rtt-total"] {
+    color: var(--success);
+}
+[data-reference-id="total-transfer-time"] {
+    color: yellow;
+}
 
 /* ===== EDUCATIONAL ARTICLES OUTSIDE MAIN ===== */
 
@@ -152,11 +178,6 @@ main > footer ul {
 @media (min-width: 600px) {
     .two-columns {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    #transfer-summary label {
-        grid-template-columns: max-content minmax(0, 1fr) max-content;
-        align-items: center;
     }
 }
 
